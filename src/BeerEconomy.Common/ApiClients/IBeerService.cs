@@ -2,7 +2,7 @@ using BeerEconomy.Common.Models.Requests.Beers;
 using BeerEconomy.Common.Models.Responses;
 using BeerEconomy.Common.Models.Responses.Beers;
 
-namespace BeerEconomy.DataStorageService.Services;
+namespace BeerEconomy.Common.ApiClients;
 
 /// <summary>
 ///     Сервис пив

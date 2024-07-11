@@ -2,7 +2,7 @@ using BeerEconomy.Common.Models.Requests.Prices;
 using BeerEconomy.Common.Models.Responses;
 using BeerEconomy.Common.Models.Responses.Prices;
 
-namespace BeerEconomy.DataStorageService.Services;
+namespace BeerEconomy.Common.ApiClients;
 
 /// <summary>
 ///     Сервис цен

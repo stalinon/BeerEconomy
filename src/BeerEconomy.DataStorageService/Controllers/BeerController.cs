@@ -1,3 +1,4 @@
+using BeerEconomy.Common.ApiClients;
 using BeerEconomy.Common.Models.Requests.Beers;
 using BeerEconomy.Common.Models.Requests.Prices;
 using BeerEconomy.DataStorageService.Services;

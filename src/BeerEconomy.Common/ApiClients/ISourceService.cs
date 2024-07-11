@@ -1,7 +1,7 @@
 using BeerEconomy.Common.Models.Requests.Sources;
 using BeerEconomy.Common.Models.Responses.Sources;
 
-namespace BeerEconomy.DataStorageService.Services;
+namespace BeerEconomy.Common.ApiClients;
 
 /// <summary>
 ///     Сервис источников
