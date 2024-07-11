@@ -1,14 +1,13 @@
 using System.Text.Json.Serialization;
-using BeerEconomy.Common.Attributes;
+using BeerEconomy.Common.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BeerEconomy.Common.Models.Requests;
 
 /// <summary>
 ///     Пагинированный запрос
 /// </summary>
-public class PagedQuery
+public class PagedQuery : QueryBase
 {
     /// <summary>
     ///     Сдвиг
