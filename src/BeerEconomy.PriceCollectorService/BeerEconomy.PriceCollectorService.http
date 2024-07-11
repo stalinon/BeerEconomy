@@ -1,0 +1,6 @@
+@BeerEconomy.PriceCollectorService_HostAddress = http://localhost:5083
+
+GET {{BeerEconomy.PriceCollectorService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

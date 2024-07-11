@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerEconomy.BeerManagementService", "src\BeerEconomy.BeerManagementService\BeerEconomy.BeerManagementService.csproj", "{61F4031D-1E56-4127-A597-70B3828D3B5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerEconomy.PriceCollectorService", "src\BeerEconomy.PriceCollectorService\BeerEconomy.PriceCollectorService.csproj", "{3399FFF8-8A20-4A4E-BAD4-7D0320BE92D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerEconomy.DataStorageService", "src\BeerEconomy.DataStorageService\BeerEconomy.DataStorageService.csproj", "{2482F6E2-178E-4C58-9DB5-31E490F12BD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerEconomy.FrontEndService", "src\BeerEconomy.FrontEndService\BeerEconomy.FrontEndService.csproj", "{BFBEECAA-8BC8-4D31-9540-4BC3EF3B8489}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerEconomy.AdminService", "src\BeerEconomy.AdminService\BeerEconomy.AdminService.csproj", "{45374BD0-9664-4BE5-86CC-89A7026796EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerEconomy.Common", "src\BeerEconomy.Common\BeerEconomy.Common.csproj", "{EC194123-7839-42B4-BF94-D128F6D4DD5C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61F4031D-1E56-4127-A597-70B3828D3B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61F4031D-1E56-4127-A597-70B3828D3B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61F4031D-1E56-4127-A597-70B3828D3B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61F4031D-1E56-4127-A597-70B3828D3B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3399FFF8-8A20-4A4E-BAD4-7D0320BE92D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3399FFF8-8A20-4A4E-BAD4-7D0320BE92D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3399FFF8-8A20-4A4E-BAD4-7D0320BE92D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3399FFF8-8A20-4A4E-BAD4-7D0320BE92D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2482F6E2-178E-4C58-9DB5-31E490F12BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2482F6E2-178E-4C58-9DB5-31E490F12BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2482F6E2-178E-4C58-9DB5-31E490F12BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2482F6E2-178E-4C58-9DB5-31E490F12BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFBEECAA-8BC8-4D31-9540-4BC3EF3B8489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFBEECAA-8BC8-4D31-9540-4BC3EF3B8489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFBEECAA-8BC8-4D31-9540-4BC3EF3B8489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBEECAA-8BC8-4D31-9540-4BC3EF3B8489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45374BD0-9664-4BE5-86CC-89A7026796EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45374BD0-9664-4BE5-86CC-89A7026796EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45374BD0-9664-4BE5-86CC-89A7026796EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45374BD0-9664-4BE5-86CC-89A7026796EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC194123-7839-42B4-BF94-D128F6D4DD5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC194123-7839-42B4-BF94-D128F6D4DD5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC194123-7839-42B4-BF94-D128F6D4DD5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC194123-7839-42B4-BF94-D128F6D4DD5C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

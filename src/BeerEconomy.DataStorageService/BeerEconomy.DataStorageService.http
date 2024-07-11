@@ -1,0 +1,6 @@
+@BeerEconomy.DataStorageService_HostAddress = http://localhost:5089
+
+GET {{BeerEconomy.DataStorageService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
