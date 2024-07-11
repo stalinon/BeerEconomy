@@ -7,7 +7,7 @@ namespace BeerEconomy.DataStorageService.Services;
 /// <summary>
 ///     Сервис цен
 /// </summary>
-internal interface IPriceService
+public interface IPriceService
 {
     /// <summary>
     ///     Получить список цен

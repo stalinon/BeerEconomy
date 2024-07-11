@@ -36,6 +36,7 @@ internal sealed class SourceRepository(DataContext dataContext) : IRepository<So
     public async Task<SourceEntity> CreateAsync(SourceEntity entity, CancellationToken cancellationToken)
     {
         await dataContext.AddAsync(entity, cancellationToken);
+        await dataContext.SaveChangesAsync(cancellationToken);
         return entity;
     }
 
@@ -43,5 +44,6 @@ internal sealed class SourceRepository(DataContext dataContext) : IRepository<So
     public async Task DeleteAsync(int id, CancellationToken cancellationToken)
     {
         await dataContext.Set<SourceEntity>().Where(b => b.Id == id).ExecuteDeleteAsync(cancellationToken);
+        await dataContext.SaveChangesAsync(cancellationToken);
     }
 }

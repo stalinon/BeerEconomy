@@ -1,4 +1,3 @@
-using BeerEconomy.Common;
 using BeerEconomy.Common.Helpers;
 using BeerEconomy.DataStorageService.Database;
 using BeerEconomy.DataStorageService.Database.Repositories.Impl;
@@ -10,15 +9,13 @@ namespace BeerEconomy.DataStorageService;
 
 internal sealed class Startup(IConfiguration configuration)
 {
-    private IConfiguration Configuration { get; } = configuration;
+    public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
 
-        var connectionString = Environment.GetEnvironmentVariable(Configs.CONNECTION_STRING)!;
-        services.AddDbContext<DataContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString(connectionString)));
+        services.AddDbContext<DataContext>();
 
         services.AddScoped<BeerRepository>();
         services.AddScoped<PriceRepository>();
@@ -27,6 +24,8 @@ internal sealed class Startup(IConfiguration configuration)
         services.AddScoped<ISourceService, SourceService>();
         services.AddScoped<IBeerService, BeerService>();
         services.ConfigureSwagger();
+
+        ApplyMigrations(services.BuildServiceProvider());
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,5 +44,22 @@ internal sealed class Startup(IConfiguration configuration)
         {
             endpoints.MapControllers();
         });
+    }
+    
+    private static void ApplyMigrations(IServiceProvider serviceProvider)
+    {
+        try
+        {
+            using var scope = serviceProvider.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+            db.Database.SetCommandTimeout(TimeSpan.FromDays(2));
+            db.Database.Migrate();
+            db.Database.SetCommandTimeout(null);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error applying database migrations");
+        }
     }
 }

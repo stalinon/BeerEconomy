@@ -6,6 +6,8 @@ riderModule.iml
 var/
 env/
 
+src/**/launchSettings.json
+
 # Default ignored files
 /shelf/
 /workspace.xml

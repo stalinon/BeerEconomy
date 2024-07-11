@@ -17,7 +17,11 @@ internal sealed class PriceService(PriceRepository priceRepository, BeerReposito
         
         var queryable = priceRepository.CreateQuery(beerId, sourceId, query.Timeframe)
             .Where(e => e.Date <= query.To && e.Date >= query.From)
-            .Select(e => Map(e))
+            .Select(e => new PriceModel
+            {
+                Date = e.Date,
+                Value = e.Value
+            })
             .OrderByDescending(b => b.Date);
         return await PagedList<PriceModel>.PaginateAsync(queryable, query, cancellationToken);
     }

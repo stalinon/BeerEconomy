@@ -40,7 +40,11 @@ public class PagedList<TItem> : IEnumerable<TItem>
         {
             Items = items,
             TotalCount = totalCount,
-            Next = query.Next
+            Next = new()
+            {
+                Max = query.Max,
+                Skip = query.Skip + query.Max
+            }
         };
     }
 

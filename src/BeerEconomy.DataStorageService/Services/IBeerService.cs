@@ -7,7 +7,7 @@ namespace BeerEconomy.DataStorageService.Services;
 /// <summary>
 ///     Сервис пив
 /// </summary>
-internal interface IBeerService
+public interface IBeerService
 {
     /// <summary>
     ///     Получить пива

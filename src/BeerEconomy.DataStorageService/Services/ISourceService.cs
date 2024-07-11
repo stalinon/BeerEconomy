@@ -6,7 +6,7 @@ namespace BeerEconomy.DataStorageService.Services;
 /// <summary>
 ///     Сервис источников
 /// </summary>
-internal interface ISourceService
+public interface ISourceService
 {
     /// <summary>
     ///     Получить список источников

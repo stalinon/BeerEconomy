@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
+using BeerEconomy.Common.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BeerEconomy.Common.Models.Requests;
 
@@ -21,14 +23,4 @@ public class PagedQuery
     [JsonPropertyName("max")]
     [FromQuery(Name = "max")]
     public int Max { get; set; } = 20;
-
-    /// <summary>
-    ///     Следующий
-    /// </summary>
-    [JsonIgnore]
-    public PagedQuery Next => new()
-    {
-        Skip = Skip + Max,
-        Max = Max
-    };
 }

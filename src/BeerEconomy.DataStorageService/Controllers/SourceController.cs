@@ -8,7 +8,7 @@ namespace BeerEconomy.DataStorageService.Controllers;
 ///     Контроллер источников
 /// </summary>
 [Route("~/api/sources")]
-internal sealed class SourceController : Controller
+public sealed class SourceController : Controller
 {
     private readonly ISourceService _sourceService;
 

@@ -38,6 +38,7 @@ internal sealed class BeerRepository(DataContext dataContext) : IRepository<Beer
     public async Task<BeerEntity> CreateAsync(BeerEntity entity, CancellationToken cancellationToken)
     {
         await dataContext.AddAsync(entity, cancellationToken);
+        await dataContext.SaveChangesAsync(cancellationToken);
         return entity;
     }
 
@@ -45,5 +46,6 @@ internal sealed class BeerRepository(DataContext dataContext) : IRepository<Beer
     public async Task DeleteAsync(int id, CancellationToken cancellationToken)
     {
         await dataContext.Set<BeerEntity>().Where(b => b.Id == id).ExecuteDeleteAsync(cancellationToken);
+        await dataContext.SaveChangesAsync(cancellationToken);
     }
 }

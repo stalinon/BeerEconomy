@@ -8,8 +8,9 @@ namespace BeerEconomy.DataStorageService.Controllers;
 /// <summary>
 ///     Контроллер пив
 /// </summary>
+[ApiController]
 [Route("~/api/beers")]
-internal sealed class BeerController : Controller
+public sealed class BeerController : Controller
 {
     private readonly IBeerService _beerService;
     private readonly IPriceService _priceService;

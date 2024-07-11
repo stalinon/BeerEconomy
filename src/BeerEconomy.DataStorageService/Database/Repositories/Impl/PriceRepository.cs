@@ -48,6 +48,7 @@ internal sealed class PriceRepository(DataContext dataContext) : IRepository<Pri
     public async Task<PriceEntity> CreateAsync(PriceEntity entity, CancellationToken cancellationToken)
     {
         await dataContext.AddAsync(entity, cancellationToken);
+        await dataContext.SaveChangesAsync(cancellationToken);
         return entity;
     }
 
@@ -55,6 +56,7 @@ internal sealed class PriceRepository(DataContext dataContext) : IRepository<Pri
     public async Task DeleteAsync(int id, CancellationToken cancellationToken)
     {
         await dataContext.Set<PriceEntity>().Where(b => b.Id == id).ExecuteDeleteAsync(cancellationToken);
+        await dataContext.SaveChangesAsync(cancellationToken);
     }
 
     private string AggregationSql(Timeframe timeframe)

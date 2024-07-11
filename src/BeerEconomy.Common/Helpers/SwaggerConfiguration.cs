@@ -1,4 +1,5 @@
 using System.Reflection;
+using BeerEconomy.Common.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -17,14 +18,15 @@ public static class SwaggerConfiguration
         app.UseSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            options.RoutePrefix = string.Empty;
         });
     }
 
+    /// <inheritdoc cref="SwaggerConfiguration"/>
     public static void ConfigureSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(options =>
         {
+            options.SchemaFilter<SwaggerExcludeFilter>();
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Version = "v1"

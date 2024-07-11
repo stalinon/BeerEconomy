@@ -20,7 +20,13 @@ internal sealed class BeerService(BeerRepository beerRepository) : IBeerService
     public async Task<PagedList<BeerModel>> ListAsync(ListBeerQuery query, CancellationToken cancellationToken)
     {
         var queryable = beerRepository.CreateQuery()
-            .Select(e => Map(e))
+            .Select(e => new BeerModel
+            {
+                Id = e.Id,
+                Description = e.Description,
+                ImageUrl = e.ImageUrl,
+                Name = e.Name
+            })
             .OrderBy(b => b.Id);
         return await PagedList<BeerModel>.PaginateAsync(queryable, query, cancellationToken);
     }
