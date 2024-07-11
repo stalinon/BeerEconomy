@@ -59,7 +59,7 @@ internal sealed class Startup(IConfiguration configuration)
         }
         catch (Exception ex)
         {
-            throw new Exception("Error applying database migrations");
+            throw new Exception("Error applying database migrations", ex);
         }
     }
 }
