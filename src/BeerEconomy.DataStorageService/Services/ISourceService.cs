@@ -1,5 +1,4 @@
 using BeerEconomy.Common.Models.Requests.Sources;
-using BeerEconomy.Common.Models.Responses.Beers;
 using BeerEconomy.Common.Models.Responses.Sources;
 
 namespace BeerEconomy.DataStorageService.Services;

@@ -4,6 +4,7 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 var/
+env/
 
 # Default ignored files
 /shelf/

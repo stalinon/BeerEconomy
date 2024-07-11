@@ -13,12 +13,17 @@ internal sealed class BeerController : Controller
 {
     private readonly IBeerService _beerService;
     private readonly IPriceService _priceService;
+    private readonly ISourceService _sourceService;
 
     /// <inheritdoc href="BeerController" />
-    public BeerController(IBeerService beerService, IPriceService priceService)
+    public BeerController(
+        IBeerService beerService,
+        IPriceService priceService,
+        ISourceService sourceService)
     {
         _beerService = beerService;
         _priceService = priceService;
+        _sourceService = sourceService;
     }
 
     /// <summary>
@@ -107,5 +112,17 @@ internal sealed class BeerController : Controller
         request.BeerId = id;
         var prices = await _priceService.CreateAsync(request, cancellationToken);
         return Ok(prices);
+    }
+
+    /// <summary>
+    ///     Получить источники
+    /// </summary>
+    [HttpGet("{id}/sources")]
+    public async Task<IActionResult> GetSources(
+        [FromRoute] int id,
+        CancellationToken cancellationToken)
+    {
+        var sources = await _sourceService.ListAsync(id, cancellationToken);
+        return Ok(sources);
     }
 }

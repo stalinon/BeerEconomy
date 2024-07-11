@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  beer_economy_data:
+    image: stalinon/beer_economy_data
+    build:
+      context: .
+      dockerfile: src/BeerEconomy.DataStorageService/Dockerfile
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    env_file:
+      - env/BeerEconomy.DataStorageService.env
+    ports:
+      - "5080:5080"
+    networks:
+      - db_network
+      - external_network
+  postgres_db:
+    image: postgres
+    env_file:
+      - env/BeerEconomy.DataStorageService.env
+    ports:
+      - "5444:5432"
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    networks:
+      - db_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+networks:
+  db_network:
+    internal: true
+  external_network:
+    external: true
+
+volumes:
+  postgres_volume:

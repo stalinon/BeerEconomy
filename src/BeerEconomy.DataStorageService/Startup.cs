@@ -1,3 +1,5 @@
+using BeerEconomy.Common;
+using BeerEconomy.Common.Helpers;
 using BeerEconomy.DataStorageService.Database;
 using BeerEconomy.DataStorageService.Database.Repositories.Impl;
 using BeerEconomy.DataStorageService.Services;
@@ -14,8 +16,9 @@ internal sealed class Startup(IConfiguration configuration)
     {
         services.AddControllers();
 
+        var connectionString = Environment.GetEnvironmentVariable(Configs.CONNECTION_STRING)!;
         services.AddDbContext<DataContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseNpgsql(Configuration.GetConnectionString(connectionString)));
 
         services.AddScoped<BeerRepository>();
         services.AddScoped<PriceRepository>();
@@ -23,6 +26,7 @@ internal sealed class Startup(IConfiguration configuration)
         services.AddScoped<IPriceService, PriceService>();
         services.AddScoped<ISourceService, SourceService>();
         services.AddScoped<IBeerService, BeerService>();
+        services.ConfigureSwagger();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -35,6 +39,7 @@ internal sealed class Startup(IConfiguration configuration)
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseAuthorization();
+        app.UseSwaggerConfig();
 
         app.UseEndpoints(endpoints =>
         {
