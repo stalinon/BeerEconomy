@@ -13,7 +13,7 @@ services:
     env_file:
       - env/BeerEconomy.DataStorageService.env
     ports:
-      - "5080:5080"
+      - "5080:8080"
     networks:
       - db_network
       - external_network
