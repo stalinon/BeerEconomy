@@ -10,7 +10,7 @@ namespace BeerEconomy.Common.ApiClients.Impl;
 internal sealed class ApiPriceService : ApiClientBase, IPriceService
 {
     /// <inheritdoc />
-    public ApiPriceService() : base("http://localhost:5080")
+    public ApiPriceService() : base("http://localhost:5080/api")
     {
     }
 

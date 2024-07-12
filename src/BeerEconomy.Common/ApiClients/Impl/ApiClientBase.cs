@@ -1,7 +1,7 @@
 using System.Net.Mime;
 using System.Text;
+using System.Text.Json;
 using BeerEconomy.Common.Helpers;
-using Newtonsoft.Json;
 
 namespace BeerEconomy.Common.ApiClients.Impl;
 
@@ -13,7 +13,6 @@ internal abstract class ApiClientBase
     #region Fields
 
     private readonly string _baseAddress;
-    private readonly JsonSerializerSettings _serializerSettings;
 
     #endregion
 
@@ -23,11 +22,9 @@ internal abstract class ApiClientBase
     /// .ctor
     /// </summary>
     protected ApiClientBase(
-        string baseAddress,
-        JsonSerializerSettings? serializerSettings = null)
+        string baseAddress)
     {
         _baseAddress = baseAddress;
-        _serializerSettings = serializerSettings ?? new JsonSerializerSettings();
     }
 
     #endregion
@@ -194,7 +191,7 @@ internal abstract class ApiClientBase
                     httpContent = new FormUrlEncodedContent(form);
                     break;
                 default:
-                    var jsonRequest = JsonConvert.SerializeObject(request, _serializerSettings);
+                    var jsonRequest = JsonSerializer.Serialize(request);
                     httpContent = new StringContent(jsonRequest, Encoding.UTF8, MediaTypeNames.Application.Json);
                     break;
             }
@@ -213,8 +210,8 @@ internal abstract class ApiClientBase
         {
             throw new Exception(content);
         }
-        
-        return JsonConvert.DeserializeObject<T>(content, _serializerSettings);
+
+        return JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions())!;
     }
 
     #endregion

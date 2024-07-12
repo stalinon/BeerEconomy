@@ -1,0 +1,60 @@
+@page "/beers/{Id}"
+@using BeerEconomy.Common.Models.Responses.Sources
+@using BeerEconomy.Common.Enums
+
+<PageTitle>
+    @PageTitle
+</PageTitle>
+
+<RadzenTemplateForm Data="@_beerModel">
+    <RadzenRow Gap="1rem">
+        <RadzenColumn Size="12" SizeSM="6">
+            <RadzenStack>
+                @if (Id != "0")
+                {
+                    <RadzenFormField Text="ID" Variant="@Variant.Outlined">
+                        <RadzenTextBox Value="@(_beerModel.Id.ToString())" Disabled />
+                    </RadzenFormField>
+                }
+                <RadzenFormField Text="Название" Variant="@Variant.Outlined">
+                    <RadzenTextBox @bind-Value="@_beerModel.Name" />
+                </RadzenFormField>
+                <RadzenFormField Text="Описание" Variant="@Variant.Outlined">
+                    <RadzenTextArea @bind-Value="@_beerModel.Description" />
+                </RadzenFormField>
+                <RadzenFormField Text="URL картинки" Variant="@Variant.Outlined">
+                    <RadzenTextBox
+                        Value="@_beerModel.ImageUrl"
+                        ValueChanged="@(value => { _beerModel.ImageUrl = value; StateHasChanged(); })" />
+                </RadzenFormField>
+                @if (!string.IsNullOrEmpty(_beerModel.ImageUrl))
+                {
+                    <RadzenImage Path="@_beerModel.ImageUrl" Style="width: 50%" />
+                }
+            </RadzenStack>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeSM="6">
+            <RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
+                    <RadzenButton Text="Добавить источник" Click="@(_ => AddSource())" Style="width: 100%" ButtonStyle="ButtonStyle.Primary" Icon="add_circle"/>
+                </RadzenStack>
+                <RadzenDataList WrapItems Data="@_sources" Count="@_sources.Count" TItem="SourceModel">
+                    <Template Context="source">
+                        <RadzenStack Orientation="Orientation.Horizontal" Style="width: 100%;">
+                            <RadzenFormField Text="Тип" Variant="@Variant.Outlined">
+                                <RadzenDropDown @bind-Value="@source.Source" Data="@(Enum.GetValues<Source>())"></RadzenDropDown>
+                            </RadzenFormField>
+                            <RadzenFormField Style="width: 100%;" Text="Url" Variant="@Variant.Outlined">
+                                <RadzenTextBox @bind-Value="@source.Url" />
+                            </RadzenFormField>
+                            <RadzenButton Click="@(() => DeleteSource(source))" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Danger" Icon="delete"/>
+                        </RadzenStack>
+                    </Template>
+                </RadzenDataList>
+            </RadzenStack>
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+        <RadzenButton ButtonStyle="ButtonStyle.Success" Click="@(async _ => await SaveAsync())" Size="ButtonSize.Large" Icon="save" Text="Save" />
+    </RadzenStack>
+</RadzenTemplateForm>

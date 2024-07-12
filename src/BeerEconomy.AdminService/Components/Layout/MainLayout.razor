@@ -1,5 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject NavigationManager Navigation
 <RadzenComponents/>
 
 <RadzenLayout>
@@ -13,21 +12,14 @@
           </RadzenHeader>
           <RadzenSidebar @bind-Expanded="@_sidebarExpanded">
               <RadzenPanelMenu>
-                  <RadzenPanelMenuItem Text="Home" Icon="home"/>
-                  <RadzenPanelMenuItem Text="Users" Icon="account_box"/>
+                  <RadzenPanelMenuItem Text="Пивы" Icon="sports_bar" Path="/beers"/>
               </RadzenPanelMenu>
-              <div class="rz-p-4">
-                  Sidebar
-              </div>
           </RadzenSidebar>
           <RadzenBody>
               <div class="rz-p-4">
                   @Body
               </div>
           </RadzenBody>
-          <RadzenFooter>
-              Footer
-          </RadzenFooter>
      }
      else
      {
@@ -43,15 +35,12 @@
 
 @code {
     private bool _sidebarExpanded = true;
-    private bool _isLoggedIn;
+    private bool _isLoggedIn = true;
 
+    // TODO: Ну это чушь полная, надо переделать
     private async Task HandleLogin(string username, string password)
     {
-        _isLoggedIn = await Login(username, password);
-        if (_isLoggedIn)
-        {
-            Navigation.NavigateTo("/");
-        }
+        _isLoggedIn = true; // await Login(username, password);
     }
 
     private Task<bool> Login(string username, string password)

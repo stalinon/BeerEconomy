@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Text.Json.Serialization;
 using BeerEconomy.Common.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,22 +7,19 @@ namespace BeerEconomy.Common.Models.Responses;
 /// <summary>
 ///     Пагинированный список
 /// </summary>
-public class PagedList<TItem> : IEnumerable<TItem>
+public class PagedList<TItem>
 {
     /// <summary>
     ///     Список элементов
     /// </summary>
+    [JsonPropertyName("items")]
     public List<TItem> Items { get; init; } = new();
 
     /// <summary>
     ///     Общее количество
     /// </summary>
+    [JsonPropertyName("total")]
     public int TotalCount { get; init; }
-
-    /// <summary>
-    ///     Следующий запрос
-    /// </summary>
-    public PagedQuery Next { get; init; } = new();
 
     /// <inheritdoc cref="PagedList{TItem}" />
     public PagedList()
@@ -39,24 +36,7 @@ public class PagedList<TItem> : IEnumerable<TItem>
         return new()
         {
             Items = items,
-            TotalCount = totalCount,
-            Next = new()
-            {
-                Max = query.Max,
-                Skip = query.Skip + query.Max
-            }
+            TotalCount = totalCount
         };
-    }
-
-    /// <inheritdoc />
-    public IEnumerator<TItem> GetEnumerator()
-    {
-        return Items.GetEnumerator();
-    }
-
-    /// <inheritdoc />
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return ((IEnumerable) Items).GetEnumerator();
     }
 }

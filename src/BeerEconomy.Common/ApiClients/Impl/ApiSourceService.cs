@@ -9,7 +9,7 @@ namespace BeerEconomy.Common.ApiClients.Impl;
 internal sealed class ApiSourceService : ApiClientBase, ISourceService
 {
     /// <inheritdoc />
-    public ApiSourceService() : base("http://localhost:5080")
+    public ApiSourceService() : base("http://localhost:5080/api")
     {
     }
 

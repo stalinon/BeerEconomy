@@ -1,0 +1,39 @@
+@page "/beers"
+@using BeerEconomy.Common.Models.Responses.Beers
+@inject NavigationManager Navigation
+
+<PageTitle>
+    @PageTitle
+</PageTitle>
+
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
+    <RadzenButton Style="width: 100%;" Click=@(_ => Navigation.NavigateTo($"/beers/0")) Icon="add_circle" ButtonStyle="ButtonStyle.Primary" Text="Создать новое пиво" />
+</RadzenStack>
+
+<RadzenDataGrid
+    @ref=@_dataGrid
+    Data="@_models.Items"
+    AllowPaging="true"
+    PagerHorizontalAlign="HorizontalAlign.Center"
+    AllowSorting="true"
+    PageSize="@PageSize"
+    ShowPagingSummary
+    PagingSummaryFormat="@PagingSummaryFormat"
+    Page="@OnPage">
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(BeerModel.Id)" Title="ID" />
+        <RadzenDataGridColumn Property="@nameof(BeerModel.ImageUrl)" Title="Картинка">
+            <Template Context="beer">
+                <RadzenImage Path="@beer.ImageUrl" Style="width: 20%;" />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="@nameof(BeerModel.Name)" Title="Название" />
+        <RadzenDataGridColumn Title="Действия">
+            <Template Context="beer">
+                <RadzenButton Click=@(_ => Navigation.NavigateTo($"/beers/{(int) beer.Id}")) Icon="edit" ButtonStyle="ButtonStyle.Primary"/>
+                <RadzenButton Click=@(async _ => await DeleteAsync(beer.Id)) Icon="delete" ButtonStyle="ButtonStyle.Danger"/>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+

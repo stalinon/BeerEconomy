@@ -1,4 +1,5 @@
 using BeerEconomy.AdminService.Components;
+using BeerEconomy.Common.ApiClients;
 using Radzen;
 
 namespace BeerEconomy.AdminService;
@@ -12,6 +13,7 @@ internal sealed class Startup
     {
         services.AddRazorComponents().AddInteractiveServerComponents();
         services.AddRadzenComponents();
+        services.AddApiServices();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
