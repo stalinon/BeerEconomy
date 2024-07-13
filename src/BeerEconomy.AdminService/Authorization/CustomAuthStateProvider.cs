@@ -5,37 +5,23 @@ namespace BeerEconomy.AdminService.Authorization;
 
 public class CustomAuthStateProvider : AuthenticationStateProvider
 {
-    private ClaimsPrincipal _user = new(new ClaimsIdentity());
-    
+    private ClaimsPrincipal _currentUser = new(new ClaimsIdentity());
+
     public override Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        return Task.FromResult(new AuthenticationState(_user));
+        return Task.FromResult(new AuthenticationState(_currentUser));
     }
 
-    public async Task<bool> Login(string username, string password)
+    public void MarkUserAsAuthenticated(string userName)
     {
-        var adminUsername = Environment.GetEnvironmentVariable("ADMIN_USERNAME");
-        var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
-
-        if (username == adminUsername && password == adminPassword)
-        {
-            var claims = new[] {
-                new Claim(ClaimTypes.Name, username)
-            };
-            var identity = new ClaimsIdentity(claims, "BasicAuthentication");
-            _user = new ClaimsPrincipal(identity);
-            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_user)));
-            return true;
-        }
-
-        return false;
+        var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, userName) }, "apiauth_type");
+        _currentUser = new ClaimsPrincipal(identity);
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
     }
 
-    public void Logout()
+    public void MarkUserAsLoggedOut()
     {
-        var identity = new ClaimsIdentity();
-        var user = new ClaimsPrincipal(identity);
-
-        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
+        _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
     }
 }

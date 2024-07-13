@@ -1,0 +1,35 @@
+@page "/login"
+@using Microsoft.AspNetCore.Components.Authorization
+@using BeerEconomy.Common
+@using BeerEconomy.AdminService.Authorization
+@using BeerEconomy.AdminService.Components.Layout
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@layout LoginLayout
+
+<RadzenLayout>
+    <RadzenBody>
+        <div class="rz-p-4">
+            <RadzenLogin Login="@(args => HandleLogin(args.Username, args.Password))" AllowRememberMe="@false" AllowRegister="@false" AllowResetPassword="@false" />
+        </div>
+    </RadzenBody>
+</RadzenLayout>
+
+@code {
+    protected override Task OnInitializedAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    private async Task HandleLogin(string username, string password)
+    {
+        var validUsername = Environment.GetEnvironmentVariable(Configs.ADMIN_USERNAME);
+        var validPassword = Environment.GetEnvironmentVariable(Configs.ADMIN_PASSWORD);
+
+        if (username == validUsername && password == validPassword)
+        {
+            ((CustomAuthStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(username);
+            Navigation.NavigateTo("/");
+        }
+    }
+}

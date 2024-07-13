@@ -1,53 +1,39 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
 <RadzenComponents/>
 
 <RadzenLayout>
-    @if (_isLoggedIn)
-     {
-         <RadzenHeader>
-              <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
-                  <RadzenSidebarToggle Click="@(() => _sidebarExpanded = !_sidebarExpanded)"/>
-                  <RadzenLabel Text="Beer Economy Admin"/>
-              </RadzenStack>
-          </RadzenHeader>
-          <RadzenSidebar @bind-Expanded="@_sidebarExpanded">
-              <RadzenPanelMenu>
-                  <RadzenPanelMenuItem Text="Пивы" Icon="sports_bar" Path="/beers"/>
-              </RadzenPanelMenu>
-          </RadzenSidebar>
-          <RadzenBody>
-              <div class="rz-p-4">
-                  @Body
-              </div>
-          </RadzenBody>
-     }
-     else
-     {
-         <RadzenBody>
-             <div class="rz-p-4">
-                <RadzenLogin Login="@(args => HandleLogin(args.Username, args.Password))" AllowRememberMe="@false" AllowRegister="@false" />
-             </div>
-         </RadzenBody>
-     }
+    <RadzenHeader>
+      <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+          <RadzenSidebarToggle Click="@(() => _sidebarExpanded = !_sidebarExpanded)"/>
+          <RadzenLabel Text="Beer Economy Admin"/>
+      </RadzenStack>
+    </RadzenHeader>
+    <RadzenSidebar @bind-Expanded="@_sidebarExpanded">
+      <RadzenPanelMenu>
+          <RadzenPanelMenuItem Text="Пивы" Icon="sports_bar" Path="/beers"/>
+      </RadzenPanelMenu>
+    </RadzenSidebar>
+    <RadzenBody>
+      <div class="rz-p-4">
+          @Body
+      </div>
+    </RadzenBody>
 </RadzenLayout>
 
 
 
 @code {
     private bool _sidebarExpanded = true;
-    private bool _isLoggedIn = true;
-
-    // TODO: Ну это чушь полная, надо переделать
-    private async Task HandleLogin(string username, string password)
+    
+    protected override async Task OnInitializedAsync()
     {
-        _isLoggedIn = true; // await Login(username, password);
-    }
-
-    private Task<bool> Login(string username, string password)
-    {
-        var adminUsername = Environment.GetEnvironmentVariable("ADMIN_USERNAME");
-        var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
-
-        return Task.FromResult(username == adminUsername && password == adminPassword);
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (!authState.User.Identity!.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
     }
 }

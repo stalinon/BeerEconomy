@@ -1,5 +1,7 @@
+using BeerEconomy.AdminService.Authorization;
 using BeerEconomy.AdminService.Components;
 using BeerEconomy.Common.ApiClients;
+using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
 
 namespace BeerEconomy.AdminService;
@@ -14,6 +16,8 @@ internal sealed class Startup
         services.AddRazorComponents().AddInteractiveServerComponents();
         services.AddRadzenComponents();
         services.AddApiServices();
+        
+        services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

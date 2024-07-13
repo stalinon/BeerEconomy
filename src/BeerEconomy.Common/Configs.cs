@@ -9,4 +9,14 @@ public static class Configs
     ///     Строка подключения к БД
     /// </summary>
     public const string CONNECTION_STRING = nameof(CONNECTION_STRING);
+
+    /// <summary>
+    ///     Логин админа
+    /// </summary>
+    public const string ADMIN_USERNAME = nameof(ADMIN_USERNAME);
+    
+    /// <summary>
+    ///     Пароль админа
+    /// </summary>
+    public const string ADMIN_PASSWORD = nameof(ADMIN_PASSWORD);
 }
