@@ -18,7 +18,6 @@ internal sealed class Startup(IConfiguration configuration)
         services.AddControllers();
         services.ConfigureSwagger();
         services.AddApiServices();
-        services.AddScoped<IParsingService, WinlabParsingService>();
         services.AddScoped<ParsingService>();
         
         services.AddSingleton<IJobFactory, SingletonJobFactory>();

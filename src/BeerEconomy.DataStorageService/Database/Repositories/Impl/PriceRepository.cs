@@ -47,6 +47,12 @@ internal sealed class PriceRepository(DataContext dataContext) : IRepository<Pri
     /// <inheritdoc />
     public async Task<PriceEntity> CreateAsync(PriceEntity entity, CancellationToken cancellationToken)
     {
+        if (dataContext.Prices.Any(p =>
+                p.BeerId == entity.BeerId && p.SourceId == entity.SourceId && p.Date == entity.Date))
+        {
+            throw new InvalidOperationException("Цена уже существует.");
+        }
+        
         await dataContext.AddAsync(entity, cancellationToken);
         await dataContext.SaveChangesAsync(cancellationToken);
         return entity;

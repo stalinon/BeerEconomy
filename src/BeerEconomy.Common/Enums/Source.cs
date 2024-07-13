@@ -6,7 +6,7 @@ namespace BeerEconomy.Common.Enums;
 public enum Source
 {
     /// <summary>
-    ///     Винлаб
+    ///     Перекресток
     /// </summary>
-    WINLAB = 0
+    PEREKRESTOK = 0
 }
