@@ -1,8 +1,9 @@
 using BeerEconomy.Common.ApiClients;
 using BeerEconomy.Common.Helpers;
+using BeerEconomy.Common.Helpers.Exceptions;
+using BeerEconomy.Common.Helpers.Logging;
 using BeerEconomy.DataStorageService.Database;
 using BeerEconomy.DataStorageService.Database.Repositories.Impl;
-using BeerEconomy.DataStorageService.Services;
 using BeerEconomy.DataStorageService.Services.Impl;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,8 +26,7 @@ internal sealed class Startup(IConfiguration configuration)
         services.AddScoped<ISourceService, SourceService>();
         services.AddScoped<IBeerService, BeerService>();
         services.ConfigureSwagger();
-
-        ApplyMigrations(services.BuildServiceProvider());
+        services.AddCustomLogging();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,6 +40,11 @@ internal sealed class Startup(IConfiguration configuration)
         app.UseRouting();
         app.UseAuthorization();
         app.UseSwaggerConfig();
+        app.UseCustomLogging();
+        app.UseMiddleware<ExceptionMiddleware>();
+        app.UseMiddleware<ApiKeyMiddleware>();
+        
+        ApplyMigrations(app.ApplicationServices);
 
         app.UseEndpoints(endpoints =>
         {

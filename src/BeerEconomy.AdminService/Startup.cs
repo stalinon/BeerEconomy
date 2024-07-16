@@ -1,6 +1,8 @@
 using BeerEconomy.AdminService.Authorization;
 using BeerEconomy.AdminService.Components;
 using BeerEconomy.Common.ApiClients;
+using BeerEconomy.Common.Helpers.Exceptions;
+using BeerEconomy.Common.Helpers.Logging;
 using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
 
@@ -16,6 +18,7 @@ internal sealed class Startup
         services.AddRazorComponents().AddInteractiveServerComponents();
         services.AddRadzenComponents();
         services.AddApiServices();
+        services.AddCustomLogging();
         
         services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
     }
@@ -34,6 +37,8 @@ internal sealed class Startup
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseCustomLogging();
+        app.UseMiddleware<ExceptionMiddleware>();
 
         app.UseRouting();
         app.UseAntiforgery();

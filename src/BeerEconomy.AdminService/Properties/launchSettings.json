@@ -8,6 +8,7 @@
         "applicationUrl": "http://localhost:5082",
         "environmentVariables": {
           "ASPNETCORE_ENVIRONMENT": "Development",
+          "X-API-KEY": "key",
           "ADMIN_USERNAME": "admin",
           "ADMIN_PASSWORD": "password"
         }

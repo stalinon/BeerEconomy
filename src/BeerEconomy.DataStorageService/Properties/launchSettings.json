@@ -9,6 +9,7 @@
       "applicationUrl": "http://localhost:5080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
+        "X-API-KEY": "key",
         "CONNECTION_STRING": "Server=127.0.0.1;User Id=postgres;Port=5444;Database=beer_economy;Password=password;Include Error Detail=true"
       }
     }

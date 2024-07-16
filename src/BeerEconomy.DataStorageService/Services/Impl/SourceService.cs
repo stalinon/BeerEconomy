@@ -48,6 +48,7 @@ internal sealed class SourceService(SourceRepository sourceRepository, BeerRepos
 
     private SourceModel Map(SourceEntity entity) => new()
     {
+        Id = entity.Id,
         Source = entity.Source,
         Url = entity.Url
     };

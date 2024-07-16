@@ -19,4 +19,9 @@ public static class Configs
     ///     Пароль админа
     /// </summary>
     public const string ADMIN_PASSWORD = nameof(ADMIN_PASSWORD);
+    
+    /// <summary>
+    ///     Название заголовка
+    /// </summary>
+    public const string API_KEY_HEADER_NAME = "X-API-KEY";
 }

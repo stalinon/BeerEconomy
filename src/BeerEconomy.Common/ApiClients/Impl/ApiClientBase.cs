@@ -12,6 +12,7 @@ internal abstract class ApiClientBase
 {
     #region Fields
 
+    private readonly HttpClient _httpClient;
     private readonly string _baseAddress;
 
     #endregion
@@ -25,6 +26,8 @@ internal abstract class ApiClientBase
         string baseAddress)
     {
         _baseAddress = baseAddress;
+        _httpClient = new HttpClient();
+        _httpClient.DefaultRequestHeaders.Add(Configs.API_KEY_HEADER_NAME, Environment.GetEnvironmentVariable(Configs.API_KEY_HEADER_NAME));
     }
 
     #endregion
@@ -72,8 +75,7 @@ internal abstract class ApiClientBase
         CancellationToken cancellationToken = default)
         where TResult : class
     {
-        var client = new HttpClient();
-        var response = await client.PostAsync(GetFullUrl(url), content, cancellationToken);
+        var response = await _httpClient.PostAsync(GetFullUrl(url), content, cancellationToken);
         return await TryGetValue<TResult>(response, cancellationToken);
     }
 
@@ -85,8 +87,7 @@ internal abstract class ApiClientBase
         where T : class
         where TResult : class
     {
-        var client = new HttpClient();
-        var response = await client.PostAsync(GetFullUrl(url), GetBody(request), cancellationToken);
+        var response = await _httpClient.PostAsync(GetFullUrl(url), GetBody(request), cancellationToken);
         return await TryGetValue<TResult>(response, cancellationToken);
     }
 
@@ -98,8 +99,7 @@ internal abstract class ApiClientBase
         where T : class
         where TResult : class
     {
-        var client = new HttpClient();
-        var response = await client.PutAsync(GetFullUrl(url), GetBody(request), cancellationToken);
+        var response = await _httpClient.PutAsync(GetFullUrl(url), GetBody(request), cancellationToken);
         return await TryGetValue<TResult>(response, cancellationToken);
     }
 
@@ -110,8 +110,7 @@ internal abstract class ApiClientBase
         CancellationToken cancellationToken = default)
         where T : class
     {
-        var client = new HttpClient();
-        var response = await client.PutAsync(GetFullUrl(url), GetBody(request), cancellationToken);
+        var response = await _httpClient.PutAsync(GetFullUrl(url), GetBody(request), cancellationToken);
         return response;
     }
 
@@ -127,8 +126,7 @@ internal abstract class ApiClientBase
             RequestUri = new Uri(GetFullUrlWithQuery(url, query))
         };
 
-        var client = new HttpClient();
-        var response = await client.SendAsync(httpRequest, cancellationToken);
+        var response = await _httpClient.SendAsync(httpRequest, cancellationToken);
         return response;
     }
 
@@ -157,8 +155,7 @@ internal abstract class ApiClientBase
             }
         }
         
-        var client = new HttpClient();
-        var response = await client.SendAsync(httpRequest, cancellationToken);
+        var response = await _httpClient.SendAsync(httpRequest, cancellationToken);
         return response;
     }
 
