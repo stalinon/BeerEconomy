@@ -16,10 +16,10 @@ public sealed class ParseController(ParsingService parsingService) : Controller
     ///     Запустить парсинг
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> StartParsing(
+    public Task<IActionResult> StartParsing(
         CancellationToken cancellationToken)
     {
-        await parsingService.ParsePricesAsync(new Dictionary<int, SourceModel>(), cancellationToken);
-        return Ok();
+        parsingService.ParsePricesAsync(new Dictionary<int, SourceModel>(), cancellationToken);
+        return Task.FromResult<IActionResult>(Ok());
     }
 }

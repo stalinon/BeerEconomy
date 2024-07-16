@@ -28,9 +28,12 @@ services:
     restart: unless-stopped
     env_file:
       - env/BeerEconomy.DataStorageService.env
+    ports:
+      - "5080:5080"
     networks:
       - admin_network
       - db_network
+      - external_network
   postgres_db:
     container_name: database
     image: postgres

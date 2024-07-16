@@ -90,6 +90,15 @@ internal abstract class ApiClientBase
         return await TryGetValue<TResult>(response, cancellationToken);
     }
 
+
+    /// <inheritdoc cref="HttpClient.PostAsync(string?, HttpContent?)"/>
+    protected virtual async Task PostAsync(
+        string url,
+        CancellationToken cancellationToken = default)
+    {
+        await _httpClient.PostAsync(GetFullUrl(url), null, cancellationToken);
+    }
+
     /// <inheritdoc cref="HttpClient.PutAsync(string?, HttpContent?)"/>
     protected virtual async Task<TResult> PutAsync<T, TResult>(
         string url,

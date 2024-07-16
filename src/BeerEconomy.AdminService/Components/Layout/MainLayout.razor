@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
+@using BeerEconomy.Common.ApiClients
 @inherits LayoutComponentBase
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
+@inject ICollectorService Collector
 <RadzenComponents/>
 
 <RadzenLayout>
@@ -14,6 +16,7 @@
     <RadzenSidebar @bind-Expanded="@_sidebarExpanded">
       <RadzenPanelMenu>
           <RadzenPanelMenuItem Text="Пивы" Icon="sports_bar" Path="/beers"/>
+          <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Цены" Icon="money" Click="@(async () => await Collector.StartAsync(CancellationToken.None))" />
       </RadzenPanelMenu>
     </RadzenSidebar>
     <RadzenBody>

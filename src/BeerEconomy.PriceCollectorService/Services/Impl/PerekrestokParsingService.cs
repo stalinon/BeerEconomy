@@ -48,10 +48,9 @@ internal sealed class PerekrestokParsingService(IPriceService priceService) : IP
         var htmlDocument = new HtmlDocument();
         htmlDocument.LoadHtml(response);
 
-        var priceNode = htmlDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'price-new')]/span[contains(@class, 'sr-only')]");
-        if (priceNode != null && decimal.TryParse(
-            priceNode.InnerText.Replace("&nbsp;", "").Replace("₽", "").Trim(),
-            out var price))
+        var priceNode = htmlDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'price-new')]");
+        if (priceNode != null && decimal.TryParse(priceNode.InnerText.Replace("&nbsp;", "")
+                .Replace("Цена", "").Replace("₽", "").Trim(), out var price))
         {
             return price;
         }

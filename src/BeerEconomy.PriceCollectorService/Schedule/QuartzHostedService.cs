@@ -1,12 +1,9 @@
-using BeerEconomy.Common.Models.Responses.Sources;
-using BeerEconomy.PriceCollectorService.Services.Impl;
 using Quartz;
 using Quartz.Spi;
 
 namespace BeerEconomy.PriceCollectorService.Schedule;
 
 internal class QuartzHostedService(
-        IServiceScopeFactory serviceScopeFactory,
         ISchedulerFactory schedulerFactory,
         IJobFactory jobFactory,
         IEnumerable<JobSchedule> jobSchedules)
@@ -28,10 +25,6 @@ internal class QuartzHostedService(
         }
 
         await _scheduler.Start(cancellationToken);
-
-        using var scope = serviceScopeFactory.CreateScope();
-        var parsingService = scope.ServiceProvider.GetRequiredService<ParsingService>();
-        await parsingService.ParsePricesAsync(new Dictionary<int, SourceModel>(), CancellationToken.None);
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)

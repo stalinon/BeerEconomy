@@ -1,8 +1,17 @@
 namespace BeerEconomy.Common.ApiClients.Impl;
 
-internal sealed class ApiCollectorService : ApiClientBase
+/// <inheritdoc cref="ICollectorService"/>
+internal sealed class ApiCollectorService : ApiClientBase, ICollectorService
 {
-    public ApiCollectorService() : base(Environment.GetEnvironmentVariable(Configs.DATA_SERVICE_URL))
+    /// <inheritdoc cref="ApiCollectorService"/>
+    public ApiCollectorService() : base(Environment.GetEnvironmentVariable(Configs.COLLECTOR_SERVICE_URL)!)
     {
+    }
+
+    /// <inheritdoc />
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        var url = $"api/parse";
+        await PostAsync(url, cancellationToken);
     }
 }

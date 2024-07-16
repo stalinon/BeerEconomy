@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPriceService, ApiPriceService>();
         services.AddScoped<ISourceService, ApiSourceService>();
         services.AddScoped<IBeerService, ApiBeerService>();
+        services.AddScoped<ICollectorService, ApiCollectorService>();
 
         return services;
     }

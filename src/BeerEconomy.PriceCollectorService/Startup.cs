@@ -3,6 +3,7 @@ using BeerEconomy.Common.Helpers;
 using BeerEconomy.Common.Helpers.Exceptions;
 using BeerEconomy.Common.Helpers.Logging;
 using BeerEconomy.PriceCollectorService.Schedule;
+using BeerEconomy.PriceCollectorService.Services;
 using BeerEconomy.PriceCollectorService.Services.Impl;
 using Quartz;
 using Quartz.Impl;
@@ -19,6 +20,7 @@ internal sealed class Startup(IConfiguration configuration)
         services.AddControllers();
         services.ConfigureSwagger();
         services.AddApiServices();
+        services.AddScoped<IParsingService, PerekrestokParsingService>();
         services.AddScoped<ParsingService>();
         services.AddCustomLogging();
         
@@ -44,6 +46,7 @@ internal sealed class Startup(IConfiguration configuration)
         app.UseSwaggerConfig();
         app.UseCustomLogging();
         app.UseMiddleware<ExceptionMiddleware>();
+        // app.UseMiddleware<ApiKeyMiddleware>();
 
         app.UseEndpoints(endpoints =>
         {
