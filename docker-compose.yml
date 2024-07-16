@@ -1,6 +1,22 @@
 version: '3.4'
 
 services:
+  beer_economy_admin:
+    container_name: admin
+    image: stalinon/beer_economy_admin
+    build:
+      context: .
+      dockerfile: src/BeerEconomy.AdminService/Dockerfile
+    depends_on:
+      - beer_economy_data
+    restart: unless-stopped
+    env_file:
+      - env/BeerEconomy.AdminService.env
+    ports:
+      - "5082:5082"
+    networks:
+      - admin_network
+      - external_network
   beer_economy_data:
     container_name: data_service
     image: stalinon/beer_economy_data
@@ -13,22 +29,19 @@ services:
     env_file:
       - env/BeerEconomy.DataStorageService.env
     ports:
-      - "5080:8080"
+      - "5080:5080"
     networks:
+      - admin_network
       - db_network
-      - external_network
   postgres_db:
     container_name: database
     image: postgres
     env_file:
       - env/BeerEconomy.DataStorageService.env
-    ports:
-      - "5444:5432"
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     networks:
       - db_network
-      - external_network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
       interval: 10s
@@ -42,6 +55,8 @@ networks:
     internal: true
   external_network:
     external: true
+  admin_network:
+    internal: true
 
 volumes:
   postgres_volume:

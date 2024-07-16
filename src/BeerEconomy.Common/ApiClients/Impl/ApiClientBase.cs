@@ -22,10 +22,9 @@ internal abstract class ApiClientBase
     /// <summary>
     /// .ctor
     /// </summary>
-    protected ApiClientBase(
-        string baseAddress)
+    protected ApiClientBase()
     {
-        _baseAddress = baseAddress;
+        _baseAddress = Environment.GetEnvironmentVariable(Configs.DATA_SERVICE_URL);
         _httpClient = new HttpClient();
         _httpClient.DefaultRequestHeaders.Add(Configs.API_KEY_HEADER_NAME, Environment.GetEnvironmentVariable(Configs.API_KEY_HEADER_NAME));
     }

@@ -24,4 +24,9 @@ public static class Configs
     ///     Название заголовка
     /// </summary>
     public const string API_KEY_HEADER_NAME = "X-API-KEY";
+    
+    /// <summary>
+    ///     Адрес сервиса данных
+    /// </summary>
+    public const string DATA_SERVICE_URL = nameof(DATA_SERVICE_URL);
 }

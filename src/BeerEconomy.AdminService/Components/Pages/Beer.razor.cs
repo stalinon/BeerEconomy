@@ -29,6 +29,12 @@ public partial class Beer
     /// </summary>
     [Inject]
     public ISourceService SourceService { get; set; } = default!;
+    
+    /// <summary>
+    ///     Менеджер навигации
+    /// </summary>
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
 
     private string PageTitle => Id == "0" ? "Создание пива" : "Пиво";
 
@@ -72,6 +78,8 @@ public partial class Beer
 
         await HandleBeersAsync(id);
         await HandleSourcesAsync();
+        
+        NavigationManager.NavigateTo("/beers");
     }
 
     private async Task HandleBeersAsync(int id)

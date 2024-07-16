@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace BeerEconomy.AdminService;
 
 /// <summary>
@@ -15,6 +17,9 @@ internal sealed class Program
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseStartup<Startup>();
+                webBuilder.UseStartup<Startup>().UseKestrel(options =>
+                {
+                    options.ListenAnyIP(5082);
+                });
             });
 }
