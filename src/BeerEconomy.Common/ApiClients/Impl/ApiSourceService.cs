@@ -9,7 +9,7 @@ namespace BeerEconomy.Common.ApiClients.Impl;
 internal sealed class ApiSourceService : ApiClientBase, ISourceService
 {
     /// <inheritdoc />
-    public ApiSourceService() : base()
+    public ApiSourceService() : base(Environment.GetEnvironmentVariable(Configs.DATA_SERVICE_URL)!)
     {
     }
 

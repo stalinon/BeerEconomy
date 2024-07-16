@@ -10,7 +10,7 @@ namespace BeerEconomy.Common.ApiClients.Impl;
 internal sealed class ApiPriceService : ApiClientBase, IPriceService
 {
     /// <inheritdoc />
-    public ApiPriceService() : base()
+    public ApiPriceService() : base(Environment.GetEnvironmentVariable(Configs.DATA_SERVICE_URL)!)
     {
     }
 

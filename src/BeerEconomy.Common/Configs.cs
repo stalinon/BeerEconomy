@@ -29,4 +29,9 @@ public static class Configs
     ///     Адрес сервиса данных
     /// </summary>
     public const string DATA_SERVICE_URL = nameof(DATA_SERVICE_URL);
+    
+    /// <summary>
+    ///     Адрес коллектора
+    /// </summary>
+    public const string COLLECTOR_SERVICE_URL = nameof(COLLECTOR_SERVICE_URL);
 }

@@ -1,7 +1,8 @@
 using BeerEconomy.Common.ApiClients;
 using BeerEconomy.Common.Helpers;
+using BeerEconomy.Common.Helpers.Exceptions;
+using BeerEconomy.Common.Helpers.Logging;
 using BeerEconomy.PriceCollectorService.Schedule;
-using BeerEconomy.PriceCollectorService.Services;
 using BeerEconomy.PriceCollectorService.Services.Impl;
 using Quartz;
 using Quartz.Impl;
@@ -19,6 +20,7 @@ internal sealed class Startup(IConfiguration configuration)
         services.ConfigureSwagger();
         services.AddApiServices();
         services.AddScoped<ParsingService>();
+        services.AddCustomLogging();
         
         services.AddSingleton<IJobFactory, SingletonJobFactory>();
         services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
@@ -40,6 +42,8 @@ internal sealed class Startup(IConfiguration configuration)
         app.UseRouting();
         app.UseAuthorization();
         app.UseSwaggerConfig();
+        app.UseCustomLogging();
+        app.UseMiddleware<ExceptionMiddleware>();
 
         app.UseEndpoints(endpoints =>
         {

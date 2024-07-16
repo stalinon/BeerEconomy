@@ -6,7 +6,7 @@ using BeerEconomy.Common.Models.Responses.Sources;
 namespace BeerEconomy.PriceCollectorService.Services.Impl;
 
 /// <inheritdoc cref="IParsingService" />
-internal sealed class ParsingService(
+public sealed class ParsingService(
         IEnumerable<IParsingService> parsingServices,
         IBeerService beerService,
         ISourceService sourceService)

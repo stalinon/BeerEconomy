@@ -1,4 +1,4 @@
-using BeerEconomy.PriceCollectorService;
+namespace BeerEconomy.PriceCollectorService;
 
 /// <summary>
 ///     Точка входа
@@ -15,6 +15,9 @@ internal sealed class Program
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseStartup<Startup>();
+                webBuilder.UseStartup<Startup>().UseKestrel(options =>
+                {
+                    options.ListenAnyIP(5084);
+                });
             });
 }
