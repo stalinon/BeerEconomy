@@ -19,7 +19,7 @@ internal sealed class Program
             {
                 webBuilder.UseStartup<Startup>().UseKestrel(options =>
                 {
-                    options.ListenAnyIP(5082);
+                    options.ListenAnyIP(5080);
                 });
             });
 }
