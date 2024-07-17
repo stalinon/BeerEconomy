@@ -24,7 +24,7 @@ internal sealed class ApiPriceService : ApiClientBase, IPriceService
     /// <inheritdoc />
     public async Task<PriceModel> CreateAsync(AddPriceRequest request, CancellationToken cancellationToken)
     {
-        var url = $"beers";
+        var url = $"beers/{request.BeerId}/prices";
         return await PostAsync<AddPriceRequest, PriceModel>(url, request, cancellationToken);
     }
 }
